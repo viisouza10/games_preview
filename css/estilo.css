@@ -1,0 +1,338 @@
+*{margin:0;padding: 0;}
+body,
+html,
+source,
+video#video
+{
+	width: 100%;
+	height:100%;
+	overflow: hidden;
+	background-color: #000;
+}
+video#video
+{
+min-width: 100%;
+min-height: 100%;
+min-width: 100%;
+min-height: 100%;
+height: auto;
+position: fixed;
+background-size: cover;
+}
+
+label
+{
+	width: 50%;
+	position: absolute;
+	top:-45px;
+	left:50%;
+	font-size: 2.5rem;
+	color: #FFB800;
+	text-align: right;
+	display: inline;
+}
+
+#backgroundParada
+{
+	z-index: 1000;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display: none;
+}
+
+#legenda
+{
+	width: 70%;
+	height:25%;
+	position: absolute;
+	z-index: 1;
+	top: 65%;
+	left: 14%;
+	background-color: #400080;
+	opacity: 0;
+	border-radius: 10px;
+	-webkit-animation: legenda 40s 5s;
+	-moz-animation: legenda 40s 5s ;
+	-o-animation: legenda 40s 5s ;
+	animation: legenda 40s 5s ;
+}
+
+#sonic
+{
+
+	width:20%;
+	height:40%;
+	position: fixed;
+	top: 60%;
+	left:-100%;
+	z-index: 2;
+	-webkit-animation: sonic 40s 5s;
+	-moz-animation: sonic 40s 5s ;
+	-o-animation: sonic 40s 5s ;
+	animation: sonic 40s 5s ;
+}
+
+#logo
+{
+	width:15%;
+	height:15%;
+	position: fixed;
+	top: 80%;
+	left: 80%;
+	opacity: 1;
+	-webkit-animation: logo 41s 5s;
+	-moz-animation: logo 41s 5s ;
+	-o-animation: logo 41s 5s ;
+	animation: logo 41s 5s ;
+}
+
+#texto
+{
+	position: absolute;
+	left: -999%;
+}
+
+#titulo
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 9s;
+	-moz-animation: trocaTitulo 6s 9s ;
+	-o-animation: trocaTitulo 6s 9s ;
+	animation: trocaTitulo 6s 9s ;
+}
+#genero
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 15s;
+	-moz-animation: trocaTitulo 6s 15s ;
+	-o-animation: trocaTitulo 6s 15s ;
+	animation: trocaTitulo 6s 15s ;
+}
+#etaria
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 21s;
+	-moz-animation: trocaTitulo 6s 21s ;
+	-o-animation: trocaTitulo 6s 21s ;
+	animation: trocaTitulo 6s 21s ;
+}
+#modo
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 27s;
+	-moz-animation: trocaTitulo 6s 27s ;
+	-o-animation: trocaTitulo 6s 27s ;
+	animation: trocaTitulo 6s 27s ;
+}
+#player
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 33s;
+	-moz-animation: trocaTitulo 6s 33s ;
+	-o-animation: trocaTitulo 6s 33s ;
+	animation: trocaTitulo 6s 33s ;
+}
+#idioma
+{
+	opacity:0;
+	-webkit-animation: trocaTitulo 6s 39s;
+	-moz-animation: trocaT itulo 6s 39s;
+	-o-animation: trocaTitulo 6s 39s;
+	animation: trocaTitulo 6s 39s;
+}
+
+.textoLegenda,
+.menssagemDiv
+{
+	color: #fff;
+	font-size: 4rem;
+	position: absolute;
+	top:25%;
+	left:8%;
+	text-align: center;
+	width:88%;
+	font-family: "Super Mario Bros.", Georgia, Serif;
+}
+
+
+@-webkit-keyframes trocaTitulo
+{
+	1%
+	{
+		opacity: 1;
+	}
+
+
+
+	95%{
+		opacity: 1;	
+	}
+	100%
+	{
+		opacity: 0;
+	}
+}
+@-webkit-keyframes sumir
+{
+	0%
+	{
+		opacity: 1;
+	}
+
+
+
+
+	100%
+	{
+		opacity: 0;
+	}
+}
+@-webkit-keyframes logo
+{
+	0%
+	{
+		opacity: 1;
+	}
+	2%
+	{
+		opacity:0;
+	}
+
+	98%
+	{
+		opacity:0;
+	}
+
+	100%
+	{
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes sonic
+{
+	0%
+	{
+		
+	}
+
+	
+	1%
+	{
+
+		left: 0;
+	}
+
+	99%
+	{
+		left: 0;
+	}
+
+	100%
+	{
+		left: 100%;
+	}
+}
+@-webkit-keyframes legenda
+{
+	0%
+	{
+		width:1%;;
+	}
+	
+	10%
+	{
+
+		width:70%;
+		opacity:0.8;
+	}
+	
+	100%
+	{
+		opacity:0.8;
+
+	}
+}
+
+@keyframes sumir
+{
+	0%
+	{
+		opacity: 1;
+	}
+
+
+
+
+	100%
+	{
+		opacity: 0;
+	}
+}
+@keyframes logo
+{
+	0%
+	{
+		opacity: 1;
+	}
+	2%
+	{
+		opacity:0;
+	}
+
+	98%
+	{
+		opacity:0;
+	}
+
+	100%
+	{
+		opacity: 1;
+	}
+}
+
+@keyframes sonic
+{
+	0%
+	{
+		
+	}
+
+	
+	1%
+	{
+
+		left: 0;
+	}
+
+	99%
+	{
+		left: 0;
+	}
+
+	100%
+	{
+		left: 100%;
+	}
+}
+@keyframes legenda
+{
+	0%
+	{
+		width:1%;;
+	}
+	
+	10%
+	{
+
+		width:70%;
+		opacity:0.8;
+	}
+	
+	100%
+	{
+		opacity:0.8;
+
+	}
+}

@@ -1,0 +1,35 @@
+.menssagemDiv
+{
+	width:60%;
+	height:40%;
+	position:fixed;
+	z-index: 50;
+	background:#F49713;
+	top:25%;
+	right:20%;
+	border-radius:10px; 
+	box-shadow: 2px 2px 10px black;
+	font-size:60px;
+	text-align: center;
+	font-weight: bold;
+	color:#4a545f;
+
+}
+
+.menssagemDiv button
+{
+	width:4%;
+	height: 10%;
+	background:url(../imagens/fechar.png) no-repeat ;
+    background-size: 100% 100%;
+	border-radius:100px; 
+	margin:0;
+	border: 0;
+	position:absolute;
+	top:-5%;
+	right:1%;
+	cursor: pointer;  
+	outline: none;
+
+
+}
