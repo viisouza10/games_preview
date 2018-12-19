@@ -32,7 +32,7 @@ label
 	display: inline;
 }
 
-#backgroundParada
+#background
 {
 	z-index: 1000;
 	width: 100%;
@@ -40,6 +40,8 @@ label
 	position: fixed;
 	display: none;
 }
+
+
 
 #legenda
 {

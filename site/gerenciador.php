@@ -1,7 +1,11 @@
 <?php
     require_once "../classes/controller.class.php";
-    
-    $id = isset($_GET['id']) ? $_GET['id'] : "7898446730444";
+    session_start();
+
+    if(!$_SESSION['login']){
+        header("Location: login.php");
+    }
+    $id = isset($_GET['id']) ? $_GET['id'] : "";
 
     // Instância um objeto Controller passando como parâmetro o nome da tabela que será manipulada
     $controller = new controller('tab_jogos');
@@ -9,6 +13,11 @@
     // Variável contendo instrução SQL
     $sql = "SELECT * FROM tb_jogos ORDER BY visualizacao  DESC LIMIT 10 ";
     $dados = $controller ->getDados($sql);
+
+    $sql = "SELECT * FROM tb_jogos ORDER BY titulo_jogo";
+    $jogos = $controller ->getDados($sql);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,18 +36,18 @@
     <span class="aba" id="ranking"><label for="ranking" class="labelAba">Ranking</label></span>
 
 <!-- FORM INSERIR JOGOS -->
-    <form id="gerenciadorInserir" action="" method="post">  
+    <form id="gerenciadorInserir" action="" method="post" enctype="multipart/form-data">  
         <fieldset class="boxGerenciador">
            <h1>Cadastrar Jogos</h1>
            <div id="cadastro">
 
-            <label class="nomeCampo">Código:</label><input type="text" name="codInserir" class="input" id"campoCodigo" maxlength="13" required autofocus=""><br/>
-            <label class="nomeCampo">Título:</label><input type="text" name="titulo" class="input" id"campoTitulo" maxlength="45" required><br/>
-            <label class="nomeCampo">Genêro:</label><input type="text" name="genero" class="input" id"campoGenero" maxlength="45" required><br/>
-            <label class="nomeCampo">Players:</label><input type="number" min="1" name="players" class="campoNumber" id"campoPlayers"  required>
+            <label class="nomeCampo">Código:</label><input type="text" name="codInserir" class="input" id="campoCodigo" maxlength="13" required autofocus=""><br/>
+            <label class="nomeCampo">Título:</label><input type="text" name="titulo" class="input" id="campoTitulo" maxlength="45" required><br/>
+            <label class="nomeCampo">Genêro:</label><input type="text" name="genero" class="input" id="campoGenero" maxlength="45" required><br/>
+            <label class="nomeCampo">Players:</label><input type="number" min="1" name="players" class="campoNumber" id="campoPlayers"  required>
             <div class="boxVideo">
                 <label class="labelVideo">Vídeo</label><br/>
-                <label id="enviarArquivo"><input type="file" name="video" value="Video" id"fileVideo" class="campoVideo" value="background.php" accept=".mp4" required></label>
+                <label id="enviarArquivo"><input type="file" name="video" value="Video" id="fileVideo" class="campoVideo" value="background.php" accept=".mp4" required></label>
             </div>
                 
             
@@ -48,7 +57,7 @@
                 <input type="radio" value="livre" name="faixa" class="campoRadio" id="campoLivre" required><label class="nomeCampoRadio">Livre</label>
                 <input type="radio" value="10"name="faixa" class="campoRadio" id="campoDez" required><label class="nomeCampoRadio">10 anos</label>
                 <input type="radio" value="12"name="faixa" class="campoRadio" id="campoDoze" required><label class="nomeCampoRadio">12 anos</label>
-                <input type="radio" value="14" name="faixa" class="campoRadio" id"campoQuatorze" required> <label class="nomeCampoRadio">14 anos</label>
+                <input type="radio" value="14" name="faixa" class="campoRadio" id="campoQuatorze" required> <label class="nomeCampoRadio">14 anos</label>
                 <input type="radio" value="16"name="faixa" class="campoRadio" id="campoDezeseis" required><label class="nomeCampoRadio">16 anos</label>
                 <input type="radio" value="18"name="faixa" class="campoRadio" id="campoDezoito" required><label class="nomeCampoRadio">18 anos</label><br/>
                 
@@ -57,16 +66,16 @@
             <br><br>
                 <div class="boxModoJogo">
                     <label class="labelBox">Modo de Jogo</label><br/>
-                    <input type="radio" value="Online" name="modo" class="campoRadio" id"campoOn" required><label class="nomeCampoRadio">On</label>
+                    <input type="radio" value="Online" name="modo" class="campoRadio" id="campoOn" required><label class="nomeCampoRadio">On</label>
                     <input type="radio" value="Online-Offline"name="modo" class="campoRadio" id="campoOnOff" required><label class="nomeCampoRadio">On/Off</label>
                     <input type="radio" value="Offline"name="modo" class="campoRadio" id="campoOff" required><label class="nomeCampoRadio">Off</label><br/>
                 </div>
                 
                 <div class="boxIdioma">
                     <label class="labelBox">Idioma</label><br/>
-                    <input type="radio" value="português" name="idioma" class="campoRadio" id"campoIdiomaPt" required><label class="nomeCampoRadio">Português</label>
-                    <input type="radio" value="legendado"name="idioma" class="campoRadio" id"campoIdiomaLegendaPt" required><label class="nomeCampoRadio">Legendado</label>
-                    <input type="radio" value="inglês"name="idioma" class="campoRadio" id"campoIdiomaIngles" required>  <label class="nomeCampoRadio">Inglês</label><br/>
+                    <input type="radio" value="português" name="idioma" class="campoRadio" id="campoIdiomaPt" required><label class="nomeCampoRadio">Português</label>
+                    <input type="radio" value="legendado"name="idioma" class="campoRadio" id="campoIdiomaLegendaPt" required><label class="nomeCampoRadio">Legendado</label>
+                    <input type="radio" value="inglês"name="idioma" class="campoRadio" id="campoIdiomaIngles" required>  <label class="nomeCampoRadio">Inglês</label><br/>
                 </div>
        
                 <div class="boxCor">  
@@ -85,8 +94,7 @@
                     <label class="labelCor">Cor Conteúdo</label><br/>
                     <input type="color"name="corConteudo" id="corConteudo" class="cor"  value="#ffffff">
                   </div><br/>
-                   
-                    <label id="demo">Ver Demo</label>
+                
 
                 </div>
 
@@ -101,7 +109,7 @@
     <div id="boxMensagemInserir">
         
     </div> 
-    </form>
+</form>
 <!-- FIM FORM INSERIR JOGOS -->
 
 
@@ -112,14 +120,30 @@
            <h1>Editar Jogos</h1>
            
            <div id="cadastro">
-
-            <label class="nomeCampo">Código:</label><input type="text" name="codEditar" class="input" id"inputeditar" maxlength="13" required autofocus=""><br/>
+           
+            <label class="nomeCampo">Código:</label>
+            <input list="inputeditar" name="codEditar" class="input"  >
+                <datalist name="codEditar" class="input" id="inputeditar" >
+                <?php
+                    foreach ($jogos as $key => $value) {
+                ?>
+                    <option value="<?=$value->id_jogo;?>"><?=$value->titulo_jogo?></option>       
+                <?php
+                    }
+                ?>
+                <!-- <option value="Internet Explorer">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari"> -->
+                </datalist>
+                <br/>
             <label class="nomeCampo">Título:</label><input type="text" name="tituloEditar" class="input" id"campoTitulo" maxlength="45" required><br/>
-            <label class="nomeCampo">Genêro:</label><input type="text" name="generoEditar" class="input" id"campoGenero" maxlength="45" required><br/>
-            <label class="nomeCampo">Players:</label><input type="number" min="1" name="playersEditar" class="campoNumber input" id"campoPlayers" required>
+            <label class="nomeCampo">Genêro:</label><input type="text" name="generoEditar" class="input" id="campoGenero" maxlength="45" required><br/>
+            <label class="nomeCampo">Players:</label><input type="number" min="1" name="playersEditar" class="campoNumber input" id="campoPlayers" required>
             <div class="boxVideo">
                 <label class="labelVideo">Vídeo</label><br/>
-                <input type="file" name="videoEditar" value="Video" id"fileVideo" class="campoVideo" value="background.php" accept=".mp4" required>
+                <input type="file" name="videoEditar" value="Video" id="fileVideo" class="campoVideo" value="background.php" accept=".mp4" required>
             </div>
                 
             
@@ -129,7 +153,7 @@
                 <input type="radio" value="livre" name="faixaEditar" class="campoRadio" id="livre" required><label class="nomeCampoRadio">Livre</label>
                 <input type="radio" value="10"name="faixaEditar" class="campoRadio" id="dez" required><label class="nomeCampoRadio">10 anos</label>
                 <input type="radio" value="12"name="faixaEditar" class="campoRadio" id="doze" required><label class="nomeCampoRadio">12 anos</label>
-                <input type="radio" value="14" name="faixaEditar" class="campoRadio" id"quatorze" required> <label class="nomeCampoRadio">14 anos</label>
+                <input type="radio" value="14" name="faixaEditar" class="campoRadio" id="quatorze" required> <label class="nomeCampoRadio">14 anos</label>
                 <input type="radio" value="16"name="faixaEditar" class="campoRadio" id="dezesseis" required><label class="nomeCampoRadio">16 anos</label>
                 <input type="radio" value="18"name="faixaEditar" class="campoRadio" id="dezoito" required><label class="nomeCampoRadio">18 anos</label><br/>
                 
@@ -138,16 +162,16 @@
             <br><br>
                 <div class="boxModoJogo">
                     <label class="labelBox">Modo de Jogo</label><br/>
-                    <input type="radio" value="Online" name="modoEditar" class="campoRadio" id"campoOn" required><label class="nomeCampoRadio">On</label>
+                    <input type="radio" value="Online" name="modoEditar" class="campoRadio" id="campoOn" required><label class="nomeCampoRadio">On</label>
                     <input type="radio" value="Online-Offline"name="modoEditar" class="campoRadio" id="campoOnOff" required><label class="nomeCampoRadio">On/Off</label>
                     <input type="radio" value="Offline"name="modoEditar" class="campoRadio" id="campoOff" required><label class="nomeCampoRadio">Off</label><br/>
                 </div>
                 
                 <div class="boxIdioma">
                     <label class="labelBox">Idioma</label><br/>
-                    <input type="radio" value="português" name="idiomaEditar" class="campoRadio" id"campoIdiomaPt" required><label class="nomeCampoRadio">Português</label>
-                    <input type="radio" value="legendado"name="idiomaEditar" class="campoRadio" id"campoIdiomaLegendaPt" required><label class="nomeCampoRadio">Legendado</label>
-                    <input type="radio" value="inglês"name="idiomaEditar" class="campoRadio" id"campoIdiomaIngles" required>  <label class="nomeCampoRadio">Inglês</label><br/>
+                    <input type="radio" value="português" name="idiomaEditar" class="campoRadio" id="campoIdiomaPt" required><label class="nomeCampoRadio">Português</label>
+                    <input type="radio" value="legendado"name="idiomaEditar" class="campoRadio" id="campoIdiomaLegendaPt" required><label class="nomeCampoRadio">Legendado</label>
+                    <input type="radio" value="inglês"name="idiomaEditar" class="campoRadio" id="campoIdiomaIngles" required>  <label class="nomeCampoRadio">Inglês</label><br/>
                 </div>
        
                 <div class="boxCor">  
@@ -167,7 +191,6 @@
                     <input type="color"name="corConteudoEditar" id="corConteudo" class="cor"  value="#ffffff">
                   </div><br/>
                    
-                    <label id="demo">Ver Demo</label>
 
 
                   </div>
@@ -193,7 +216,7 @@
         <fieldset class="boxGerenciador">
            <h1>Apagar Jogos</h1>
            <div id="cadastro">
-                <label class="nomeCampo">Título do Jogo:</label><input type="text" name="codAPagar" class="input" id"campoCodigo" maxlength="12" required placeholder="Digite o título do jogo"><br/>
+                <label class="nomeCampo">Título do Jogo:</label><input type="text" name="codAPagar" class="input" id="campoCodigo" maxlength="12" required placeholder="Digite o título do jogo"><br/>
             </div>
             <div id="boxTabela">
                 <table id="tabelaApagar" class="tabela">
@@ -258,13 +281,8 @@
     
 </body>
 </html>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
 <?php
     require_once "../site/inserir.php";
 ?>
-
-    <script type="text/javascript" src="../js/jquery.js"></script>
-    <script type="text/javascript" src="../js/main.js"></script>
-
-<script type="text/javascript">
-
-</script>

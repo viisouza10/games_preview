@@ -7,14 +7,15 @@
 	// Array contendo condições para o delete
 	$arrayCondicao = array('id_jogo=' => $codigo);
 
-
-	// Chama o método necessário INSERT, UPDATE ou DELETE
-	echo $controller->delete($arrayCondicao);
-	
 	// Variável contendo instrução SQL
 	$sql = "SELECT video FROM tb_jogos WHERE id_jogo = ".$codigo;
 	$video = $controller ->getDados($sql);
 
 	//Apagando arquivo fisico do video
 	unlink("../video/" . $video[0]->video);
+	
+	// Chama o método necessário INSERT, UPDATE ou DELETE
+	echo $controller->delete($arrayCondicao);
+	
+
 ?>

@@ -6,7 +6,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : "7898446730444";
 $controller = new controller('tb_jogos');
 
 // Variável contendo instrução SQL
-$sql = "SELECT * FROM tb_jogos WHERE id_jogo = '".$id."' ";
+$sql = "SELECT * FROM tb_jogos WHERE titulo_jogo like '%".$id."%'";
+
 $dados = $controller ->getDados($sql);
 $count = count($dados);
 $visualizacao = isset($dados[0]->visualizacao) ? $dados[0]->visualizacao + 1 : 0;
@@ -22,7 +23,7 @@ if ($count <= 0) {
 	        );
 
 		// Array contendo condições para o update
-		 $arrayCondicao = array('id_jogo=' => $id);
+		 $arrayCondicao = array('id_jogo=' => $dados[0]->id_jogo);
 
 		// Chama o método necessário INSERT, UPDATE ou DELETE
 
@@ -78,12 +79,14 @@ if ($count <= 0) {
 	}
 
 	var mp4 = document.getElementById('video');
-	$(document).ready(function() {
-		
-		mp4.addEventListener('ended', function(){
-			location.href="background.php";
-		});
+window.load = function(){
+
+	mp4.addEventListener('ended', function(){
+		location.href="background.php";
 	});
+}
+		
+
  
 
 </script>

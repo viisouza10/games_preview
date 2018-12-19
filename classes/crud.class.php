@@ -1,19 +1,8 @@
-
 <?php  
-  
- /*************************************************************************************************************  
- * @author William F. Leite                                                                                   *  
- * Data: 20/06/2014                                                                                           *  
- * Descrição: Classe elaborada com o objetivo de auxlilar nas operações CRUDs em diversos SGBDS, possui       *  
- * funcionalidades para construir instruções de INSERT, UPDATE E DELETE onde as mesmas podem ser executadas   *  
- * nos principais SGBDs, exemplo SQL Server, MySQL e Firebird. Instruções SELECT são recebidas integralmente  *  
- * via parâmetro.                                                                                             *  
- *************************************************************************************************************/  
 
-error_reporting(E_ALL);
+error_reporting(E_ERROR);
 ini_set("display_errors", 1);
 require_once "conexao.class.php";
-  
   
 class crud{   
   
@@ -45,11 +34,7 @@ class crud{
      }  
    }  
     
-   /*   
-   * Método privado para construção da instrução SQL de INSERT   
-   * @param $arrayDados = Array de dados contendo colunas e valores   
-   * @return String contendo instrução SQL   
-   */    
+
    private function buildInsert($arrayDados){   
     
        // Inicializa variáveis   

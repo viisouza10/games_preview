@@ -1,7 +1,6 @@
 <?php
     // Require nos scripts necessários
-    require_once "../classes/helper/helper_format.class.php";
-    require_once "../classes/controller.class.php";
+require_once "../classes/controller.class.php";
 if (isset($_POST['cadastrar'])) {
 	$msg = " ";
     $codigo = isset($_POST['codInserir']) ? $_POST['codInserir'] : null;
@@ -26,33 +25,33 @@ if (isset($_POST['cadastrar'])) {
 	$dadosJogos = $controller->getDados($sql);
 
 	$tamanhoObjeto = count($dadosJogos);
-	if ($tamanhoObjeto > 0)
-	{
+	if ($tamanhoObjeto > 0){
 			echo "<span class='erro'>Jogo já cadastrado! </span>";
-	}
-	else
-	{
+	}else{
 	    // Instância um objeto Controller passando como parâmetro o nome da tabela que será manipulada
 	    $controller = new controller('tb_jogos');
-
-	    // Array com dados para inserção no banco de dados
-	    $arrayDados = array(
-	        'id_jogo' => $codigo, 
-	        'titulo_jogo' => $titulo, 
-	        'idioma' => $idioma, 
-	        'video' => $video, 
-	        'faixa_etaria' => $faixa, 
-	        'qnt_player' => $players, 
-	        'modo_jogo' => $modo, 
-	        'genero' => $genero,
-	        'corLegenda' => $corLegenda,
-	        'corTitulo' => $corTitulo,
-	        'corConteudo' => $corConteudo,
-	        );
-	    if ($codigo != null) {
-	        echo $controller->insert($arrayDados);
-	        echo "<span class='sucesso'>Jogo cadastrado com sucesso! </span>";
-	    } 		
+		// Array com dados para inserção no banco de dados
+		if (move_uploaded_file($_FILES["video"]["tmp_name"], "../video/". basename($_FILES["video"]["name"]))) {
+			$arrayDados = array(
+				'id_jogo' => $codigo, 
+				'titulo_jogo' => $titulo, 
+				'idioma' => $idioma, 
+				'video' => $_FILES["video"]["name"], 
+				'faixa_etaria' => $faixa, 
+				'qnt_player' => $players, 
+				'modo_jogo' => $modo, 
+				'genero' => $genero,
+				'corLegenda' => $corLegenda,
+				'corTitulo' => $corTitulo,
+				'corConteudo' => $corConteudo,
+				);
+			if ($codigo != null) {
+				echo $controller->insert($arrayDados);
+				echo "<span class='sucesso'>Jogo cadastrado com sucesso! </span>";
+			} 		
+		} else {
+			echo "Erro ao copiar arquivo";
+		}
 	}
 	
   }  
